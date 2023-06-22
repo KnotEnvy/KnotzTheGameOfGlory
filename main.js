@@ -10,6 +10,7 @@ window.addEventListener('load', function(){
     canvas.width = 900
     canvas.height = 500
 
+    
     class Game {
         constructor(width, height) {
             this.width = width;
