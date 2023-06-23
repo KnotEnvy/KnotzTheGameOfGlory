@@ -27,11 +27,13 @@ window.addEventListener('load', function(){
             this.particles = []
             this.collisions = [];
             this.floatingMessages = [];
+            this.winningScore = 50;
             this.instructions = [
                 'Left and right arrow move',
                 'Up arrow jumps',
                 'Press Enter to attack',
-                `Get ${this.winningScore} within in the time limit and win!!`
+                `Get ${this.winningScore} within in the time limit and win!!`,
+                'GOOD LUCK!!'
             ];
             this.instructionTimer = 0;
             this.instructionAlpha = 1;
@@ -41,7 +43,6 @@ window.addEventListener('load', function(){
             this.enemyInterval = 1000
             this.debug = false
             this.score = 0
-            this.winningScore = 50;
             this.fontColor = 'black'
             this.time = 0;
             this.maxTime = 30000;
