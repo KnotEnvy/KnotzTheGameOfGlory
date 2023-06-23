@@ -15,10 +15,10 @@ export class FloatingMessage {
         if (this.timer > 100) this.markedForDeletion = true
     }
     draw(c){
-        c.font = '20px Creepster';
-        c.fillStyle = 'white';
-        c.fillText(this.value, this.x, this.y);
+        c.font = '24px Creepster';
         c.fillStyle = 'black';
+        c.fillText(this.value, this.x, this.y);
+        c.fillStyle = 'gold';
         c.fillText(this.value, this.x - 2, this.y - 2);
     }
 }

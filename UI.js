@@ -10,7 +10,7 @@ export class UI {
         c.shadowOffsetX = 2;
         c.shadowOffsetY = 2
         c.shadowColor = 'white';
-        c.shadowBlue = 0
+        c.shadowBlur = 10
         c.font = this.fontSize + 'px ' + this.fontFamily;
         c.textAlign = 'left'
         c.fillStyle = this.game.fontColor;
@@ -47,6 +47,10 @@ export class UI {
             document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
         }
         c.restore();
+    }
+    update(deltaTime) {
+        // Update the UI state here, if necessary
+        // this.draw(c)
     }
 
 }

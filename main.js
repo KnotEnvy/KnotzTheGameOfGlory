@@ -18,7 +18,7 @@ window.addEventListener('load', function(){
             this.isGameStarted = false;
             this.groundMargin = 40
             this.speed = 0
-            this.maxSpeed = 3
+            this.maxSpeed = 5
             this.background = new Background(this)
             this.player = new Player(this);
             this.input = new InputHandler(this);
@@ -45,9 +45,9 @@ window.addEventListener('load', function(){
             this.score = 0
             this.fontColor = 'black'
             this.time = 0;
-            this.maxTime = 30000;
+            this.maxTime = 10000;
             this.gameOver = false
-            this.lives = 3;
+            this.lives = 5;
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter()
         }
@@ -61,7 +61,7 @@ window.addEventListener('load', function(){
             c.save();
             c.shadowOffsetX = 2;
             c.shadowOffsetY = 2;
-            c.shadowColor = 'white';
+            c.shadowColor = 'gold';
             c.shadowBlur = 10;
             c.font = '30px Helvetica';
             c.textAlign = 'center';
@@ -119,7 +119,9 @@ window.addEventListener('load', function(){
             this.particles = this.particles.filter(particle => !particle.markedForDeletion)
             this.collisions = this.collisions.filter(collision => !collision.markedForDeletion)
             this.floatingMessages = this.floatingMessages.filter(message => !message.markedForDeletion)
+            this.instructions = this.instructions.filter(message => !message.markedForDeletion)
 
+            this.UI.update(deltaTime);
 
         }
         draw(c){
@@ -152,25 +154,26 @@ window.addEventListener('load', function(){
             this.groundMargin = 40;
             this.speed = 0;
             this.maxSpeed = 3;
-            this.background = new Background(this);
-            this.player = new Player(this);
-            this.input = new InputHandler(this);
-            this.UI = new UI(this);
+            // this.background = new Background(this);
+            // this.player = new Player(this);
+            // this.input = new InputHandler(this);
+            // this.UI = new UI(this);
             this.enemies = [];
             this.particles = [];
             this.collisions = [];
             this.floatingMessages = [];
-            this.maxParticles = 200;
+            // this.maxParticles = 200;
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
-            this.debug = false;
+            // this.debug = false;
             this.score = 0;
-            this.winningScore = 50;
-            this.fontColor = 'black';
+            // this.winningScore = 50;
+            // this.fontColor = 'black';
             this.time = 0;
-            this.maxTime = 60000;
+            this.lastTime = 0
+            // this.maxTime = 60000;
             this.gameOver = false;
-            this.lives = 3;
+            this.lives = 5;
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter();
             animate(0);
@@ -191,7 +194,7 @@ window.addEventListener('load', function(){
         }
         game.update(deltaTime);
         game.draw(ctx);
-        if (!game.gameOver) requestId = requestAnimationFrame(animate);
+        if (!game.isRestarting) requestId = requestAnimationFrame(animate); // Keep updating until the game is restarted
     }
     
     const startScreen = document.getElementById('startScreen');
