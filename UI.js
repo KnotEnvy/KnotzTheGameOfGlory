@@ -26,23 +26,27 @@ export class UI {
         }
         // game over messages
         if (this.game.gameOver){
+            c.shadowBlur = 10; // Apply the glow effect
+            const time = Date.now() * 0.002; // Current time in seconds, for the animation
+            const scale = Math.sin(time) * 0.3 + 1.0; // Scale varies between 0.7 and 1.3
             c.textAlign = 'center';
-            c.font = this.fontSize * 2 + 'px ' + this.fontFamily;
+            c.font = (this.fontSize * 2 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
             if (this.game.score > this.game.winningScore) {
-                c.fillText('Boo-yah', this.game.width * .5, this.game.height * 0.5 -20)
-                c.font = this.fontSize * 0.7 + 'px ' + this.fontFamily;
+                c.fillText('Boo-yah', this.game.width * .5, this.game.height * 0.5 -20);
+                c.font = (this.fontSize * 0.7 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
                 c.fillText('What are creatures of the night afraid of? YOU!!', 
-                this.game.width * 0.5, this.game.height *0.5 +20)
-
+                this.game.width * 0.5, this.game.height *0.5 +20);
             } else {
-                c.fillText('Love at first Bite?', this.game.width * .5, this.game.height *0.5 -20)
-                c.font = this.fontSize * 0.7 + 'px ' + this.fontFamily;
+                c.fillText('Love at first Bite?', this.game.width * .5, this.game.height *0.5 -20);
+                c.font = (this.fontSize * 0.7 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
                 c.fillText('Nope! Better luck next time!', 
-                this.game.width * 0.5, this.game.height *0.5 +20)
+                this.game.width * 0.5, this.game.height *0.5 +20);
             }
-
+            document.getElementById('restartButton').style.display = 'block'; // Show the restart button
+        } else {
+            document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
         }
-        c.restore()
+        c.restore();
     }
 
 }

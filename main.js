@@ -35,7 +35,7 @@ window.addEventListener('load', function(){
             this.winningScore = 40;
             this.fontColor = 'black'
             this.time = 0;
-            this.maxTime = 30000;
+            this.maxTime = 60000;
             this.gameOver = false
             this.lives = 3;
             this.player.currentState = this.player.states[0];
@@ -46,7 +46,7 @@ window.addEventListener('load', function(){
         }
         
         update(deltaTime){
-            if (!this.isGameStarted) return;
+            if (!this.isGameStarted || this.gameOver) return;
             this.time += deltaTime
             if (this.time > this.maxTime) this.gameOver = true
             this.background.update()
@@ -107,28 +107,76 @@ window.addEventListener('load', function(){
             this.enemies.push(new FlyingEnemy(this))
 
         }
+        restart() {
+            this.groundMargin = 40;
+            this.speed = 0;
+            this.maxSpeed = 3;
+            this.background = new Background(this);
+            this.player = new Player(this);
+            this.input = new InputHandler(this);
+            this.UI = new UI(this);
+            this.enemies = [];
+            this.particles = [];
+            this.collisions = [];
+            this.floatingMessages = [];
+            this.maxParticles = 200;
+            this.enemyTimer = 0;
+            this.enemyInterval = 1000;
+            this.debug = false;
+            this.score = 0;
+            this.winningScore = 50;
+            this.fontColor = 'black';
+            this.time = 0;
+            this.maxTime = 60000;
+            this.gameOver = false;
+            this.lives = 3;
+            this.player.currentState = this.player.states[0];
+            this.player.currentState.enter();
+            animate(0);
+        }
+        
     }
 
     const game = new Game(canvas.width, canvas.height);
     let lastTime = 0;
+    let requestId;
 
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
-
+    
         lastTime = timeStamp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!game.isRestarting) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
         game.update(deltaTime);
         game.draw(ctx);
-        if (!game.gameOver) requestAnimationFrame(animate);
+        if (!game.gameOver) requestId = requestAnimationFrame(animate);
     }
     
     const startScreen = document.getElementById('startScreen');
     const startButton = document.getElementById('startButton');
-
+    const restartButton = document.getElementById('restartButton');
+    
     startButton.addEventListener('click', function() {
         startScreen.style.display = 'none';
         game.start();  // Start your game here
     });
+    restartButton.addEventListener('click', function() {
+        cancelAnimationFrame(requestId);
+        restartButton.style.display = 'none';
+        game.isRestarting = true;
+        // add fade class to canvas
+        canvas.classList.add('fade');
+        // wait 0.5 seconds before restarting game
+        setTimeout(function() {
+            game.isRestarting = false;
+            game.restart();
+            // remove fade class from canvas
+            canvas.classList.remove('fade');
+        }, 500);
+    });
+    
+    
 
     animate(0);
 });

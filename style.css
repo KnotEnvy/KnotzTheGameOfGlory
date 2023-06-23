@@ -69,5 +69,30 @@ body {
     box-shadow: 0 2px #495057; /* Changed to a darker grey color */
     transform: translateY(4px);
 }
+#restartButton {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 2em;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 6px #495057; /* Changed to a darker grey color */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+@keyframes fade {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.fade {
+    animation: fade 0.5s;
+}
+
 
 
