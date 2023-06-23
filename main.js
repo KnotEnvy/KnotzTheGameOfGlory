@@ -27,6 +27,15 @@ window.addEventListener('load', function(){
             this.particles = []
             this.collisions = [];
             this.floatingMessages = [];
+            this.instructions = [
+                'Left and right arrow move',
+                'Up arrow jumps',
+                'Press Enter to attack',
+                `Get ${this.winningScore} within in the time limit and win!!`
+            ];
+            this.instructionTimer = 0;
+            this.instructionAlpha = 1;
+
             this.maxParticles = 200;
             this.enemyTimer = 0;
             this.enemyInterval = 1000
@@ -35,7 +44,7 @@ window.addEventListener('load', function(){
             this.winningScore = 50;
             this.fontColor = 'black'
             this.time = 0;
-            this.maxTime = 60000;
+            this.maxTime = 30000;
             this.gameOver = false
             this.lives = 3;
             this.player.currentState = this.player.states[0];
@@ -44,6 +53,23 @@ window.addEventListener('load', function(){
         start() {
             this.isGameStarted = true;
         }
+        showInstructions(c) {
+            if (!this.instructions.length) return;
+        
+            const instruction = this.instructions[0];
+            c.save();
+            c.shadowOffsetX = 2;
+            c.shadowOffsetY = 2;
+            c.shadowColor = 'white';
+            c.shadowBlur = 10;
+            c.font = '30px Helvetica';
+            c.textAlign = 'center';
+            c.fillStyle = `rgba(255, 255, 255, ${this.instructionAlpha})`;
+
+            c.fillText(instruction, this.width / 2, 50);
+            c.restore();
+        }
+        
         
         update(deltaTime){
             if (!this.isGameStarted || this.gameOver) return;
@@ -51,6 +77,17 @@ window.addEventListener('load', function(){
             if (this.time > this.maxTime) this.gameOver = true
             this.background.update()
             this.player.update(this.input.keys, deltaTime)
+            //display instructions on screen
+            if (this.instructions.length && this.instructionTimer > 3000) {
+                this.instructions.shift();
+                this.instructionTimer = 0;
+                this.instructionAlpha = 1;
+            } else {
+                this.instructionAlpha = 1 - this.instructionTimer / 3000;  // Alpha will go from 1 to 0 over 3 seconds
+                this.instructionTimer += deltaTime;
+             
+            }
+            
             //handle enemies
             if (this.enemyTimer > this.enemyInterval){
                 this.addEnemy();
@@ -86,6 +123,8 @@ window.addEventListener('load', function(){
         }
         draw(c){
             this.background.draw(c)
+
+            this.showInstructions(c);
             this.player.draw(c)
             this.enemies.forEach(enemy  => {
                 enemy.draw(c);
@@ -99,6 +138,7 @@ window.addEventListener('load', function(){
             this.floatingMessages.forEach(message => {
                 message.draw(c);
             });
+
             this.UI.draw(c)
         }
         addEnemy(){
