@@ -32,7 +32,7 @@ window.addEventListener('load', function(){
                 'Left and right arrow move',
                 'Up arrow jumps',
                 'Press Enter to attack',
-                `Get ${this.winningScore} within in the time limit and win!!`,
+                `Get ${this.winningScore}pts within in the time limit and win!!`,
                 'GOOD LUCK!!'
             ];
             this.instructionTimer = 0;
@@ -45,7 +45,7 @@ window.addEventListener('load', function(){
             this.score = 0
             this.fontColor = 'black'
             this.time = 0;
-            this.maxTime = 10000;
+            this.maxTime = 60000;
             this.gameOver = false
             this.lives = 5;
             this.player.currentState = this.player.states[0];
@@ -153,11 +153,11 @@ window.addEventListener('load', function(){
         restart() {
             this.groundMargin = 40;
             this.speed = 0;
-            this.maxSpeed = 3;
-            // this.background = new Background(this);
-            // this.player = new Player(this);
-            // this.input = new InputHandler(this);
-            // this.UI = new UI(this);
+            this.maxSpeed = 5;
+            this.background = new Background(this);
+            this.player = new Player(this);
+            this.input = new InputHandler(this);
+            this.UI = new UI(this);
             this.enemies = [];
             this.particles = [];
             this.collisions = [];
