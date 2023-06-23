@@ -15,6 +15,7 @@ window.addEventListener('load', function(){
         constructor(width, height) {
             this.width = width;
             this.height = height;
+            this.isGameStarted = false;
             this.groundMargin = 40
             this.speed = 0
             this.maxSpeed = 3
@@ -40,7 +41,12 @@ window.addEventListener('load', function(){
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter()
         }
+        start() {
+            this.isGameStarted = true;
+        }
+        
         update(deltaTime){
+            if (!this.isGameStarted) return;
             this.time += deltaTime
             if (this.time > this.maxTime) this.gameOver = true
             this.background.update()
@@ -103,17 +109,26 @@ window.addEventListener('load', function(){
         }
     }
 
-    const game = new Game (canvas.width, canvas.height)
+    const game = new Game(canvas.width, canvas.height);
     let lastTime = 0;
 
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
 
         lastTime = timeStamp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        game.update(deltaTime)
-        game.draw(ctx)
-        if (!game.gameOver) requestAnimationFrame(animate)
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        game.update(deltaTime);
+        game.draw(ctx);
+        if (!game.gameOver) requestAnimationFrame(animate);
     }
+    
+    const startScreen = document.getElementById('startScreen');
+    const startButton = document.getElementById('startButton');
+
+    startButton.addEventListener('click', function() {
+        startScreen.style.display = 'none';
+        game.start();  // Start your game here
+    });
+
     animate(0);
 });
