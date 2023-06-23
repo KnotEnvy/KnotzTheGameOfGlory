@@ -67,7 +67,7 @@ window.addEventListener('load', function(){
             c.textAlign = 'center';
             c.fillStyle = `rgba(255, 255, 255, ${this.instructionAlpha})`;
 
-            c.fillText(instruction, this.width / 2, 50);
+            c.fillText(instruction, this.width / 2, 450);
             c.restore();
         }
         
@@ -127,8 +127,8 @@ window.addEventListener('load', function(){
         draw(c){
             this.background.draw(c)
 
-            this.showInstructions(c);
             this.player.draw(c)
+            this.showInstructions(c);
             this.enemies.forEach(enemy  => {
                 enemy.draw(c);
             });
@@ -153,7 +153,7 @@ window.addEventListener('load', function(){
         restart() {
             this.groundMargin = 40;
             this.speed = 0;
-            this.maxSpeed = 5;
+            // this.maxSpeed = 5;
             this.background = new Background(this);
             this.player = new Player(this);
             this.input = new InputHandler(this);
@@ -219,8 +219,6 @@ window.addEventListener('load', function(){
             canvas.classList.remove('fade');
         }, 500);
     });
-    
-    
 
     animate(0);
 });
