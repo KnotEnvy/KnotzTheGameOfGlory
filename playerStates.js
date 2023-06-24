@@ -30,9 +30,9 @@ export class Sitting extends State {
 
     }
     handleInput(input){
-        if (input.includes('ArrowLeft') || input.includes('ArrowRight')){
+        if (input.includes('ArrowLeft') || input.includes('ArrowRight') || input.includes('swipe left') || input.includes('swipe right')) {
             this.game.player.setState(states.RUNNING, 1);
-        } else if (input.includes('Enter')) {
+        } else if (input.includes('Enter') || input.includes('double tap')) {
             this.game.player.setState(states.ROLLING, 2);
         }
     }
@@ -50,11 +50,11 @@ export class Running extends State {
     }
     handleInput(input){
         this.game.particles.unshift(new Dust(this.game, this.game.player.x + this.game.player.width *0.5, this.game.player.y+ this.game.player.height));
-        if (input.includes('ArrowDown')) {
+        if (input.includes('ArrowDown') || input.includes('swipe down')) {
             this.game.player.setState(states.SITTING, 0);
-        } else if (input.includes('ArrowUp')) {
+        } else if (input.includes('ArrowUp') || input.includes('swipe up')) {
             this.game.player.setState(states.JUMPING, 1);
-        } else if (input.includes('Enter')) {
+        } else if (input.includes('Enter') || input.includes('double tap')) {
             this.game.player.setState(states.ROLLING, 2);
         }
     }
@@ -73,9 +73,9 @@ export class Jumping extends State {
     handleInput(input){
         if (this.game.player.vy > this.game.player.weight) {
             this.game.player.setState(states.FALLING, 1);
-        } else if (input.includes('Enter')) {
+        } else if (input.includes('Enter') || input.includes('double tap')) {
             this.game.player.setState(states.ROLLING, 2);
-        } else if (input.includes('ArrowDown')){
+        } else if (input.includes('ArrowDown') || input.includes('swipe down')){
             this.game.player.setState(states.DIVING, 0)
         }
     }
@@ -93,7 +93,7 @@ export class Falling extends State {
     handleInput(input){
         if (this.game.player.onGround()){
             this.game.player.setState(states.RUNNING, 1);
-        } else if (input.includes('ArrowDown')){
+        } else if (input.includes('ArrowDown') || input.includes('swipe down')){
             this.game.player.setState(states.DIVING, 0)
         }
     }
@@ -111,17 +111,18 @@ export class Rolling extends State {
     handleInput(input){
         this.game.particles.unshift(new Fire(this.game, this.game.player.x + 
             this.game.player.width *0.5, this.game.player.y + this.game.player.height *0.5));
-
-        if (!input.includes('Enter') && this.game.player.onGround()){
+    
+        if ((!input.includes('Enter') && !input.includes('double tap')) && this.game.player.onGround()){
             this.game.player.setState(states.RUNNING, 1);
-        } else if (!input.includes('Enter') && !this.game.player.onGround()){
+        } else if ((!input.includes('Enter') && !input.includes('double tap')) && !this.game.player.onGround()){
             this.game.player.setState(states.FALLING, 1);
-        } else if (input.includes('Enter') && input.includes('ArrowUp') && this.game.player.onGround()){
+        } else if ((input.includes('swipe up') || input.includes('ArrowUp')) && this.game.player.onGround()){
             this.game.player.vy -=27;
-        } else if (input.includes('ArrowDown') & !this.game.player.onGround()){
+        } else if ((input.includes('ArrowDown') || input.includes('swipe down')) && !this.game.player.onGround()){
             this.game.player.setState(states.DIVING, 0)
         }
     }
+    
 }
 export class Diving extends State {
     constructor(game){
@@ -145,7 +146,7 @@ export class Diving extends State {
                     this.game.player.x + this.game.player.width * .5, this.game.player.y + this.game.player.height))
 
             }
-        } else if (input.includes('Enter') && this.game.player.onGround()){
+        } else if (input.includes('Enter') || input.includes('double tap') && this.game.player.onGround()){
             this.game.player.setState(states.ROLLING, 2);
 
         }
@@ -165,7 +166,7 @@ export class Hit extends State {
     handleInput(input){
         if (this.game.player.frameX >= 10 && this.game.player.onGround()){
             this.game.player.setState(states.RUNNING, 1);
-        } else if (input.includes('Enter') && !this.game.player.onGround()){
+        } else if (input.includes('Enter') || input.includes('double tap') && !this.game.player.onGround()){
             this.game.player.setState(states.FALLING, 1);
 
         }
