@@ -4,6 +4,10 @@ import { Background } from './background.js';
 import { FlyingEnemy, ClimbingEnemy, GroundEnemy } from './enemy.js';
 import { UI } from './UI.js';
 
+
+
+
+
 window.addEventListener('load', function(){
     const canvas = this.document.getElementById('canvas1');
     const ctx = canvas.getContext('2d')
@@ -28,13 +32,25 @@ window.addEventListener('load', function(){
             this.collisions = [];
             this.floatingMessages = [];
             this.winningScore = 50;
-            this.instructions = [
+            // Define instructions for desktop and mobile
+            this.desktopInstructions = [
                 'Left and right arrow move',
                 'Up arrow jumps',
                 'Press Enter to attack',
                 `Get ${this.winningScore}pts within in the time limit and win!!`,
                 'GOOD LUCK!!'
             ];
+
+            this.mobileInstructions = [
+                'Swipe left or right to move',
+                'Swipe up to jump',
+                'Tap to attack',
+                `Get ${this.winningScore}pts within in the time limit and win!!`,
+                'GOOD LUCK!!'
+            ];
+
+            // Choose the correct instructions based on device
+            this.instructions = isMobileDevice() ? this.mobileInstructions : this.desktopInstructions;
             this.instructionTimer = 0;
             this.instructionAlpha = 1;
 
@@ -162,7 +178,7 @@ window.addEventListener('load', function(){
             this.particles = [];
             this.collisions = [];
             this.floatingMessages = [];
-            // this.maxParticles = 200;
+            this.maxParticles = 200;
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             // this.debug = false;
@@ -197,17 +213,31 @@ window.addEventListener('load', function(){
         if (!game.isRestarting) requestId = requestAnimationFrame(animate); // Keep updating until the game is restarted
     }
     
+    //buttons
     const startScreen = document.getElementById('startScreen');
     const startButton = document.getElementById('startButton');
     const restartButton = document.getElementById('restartButton');
+    const quitButton = document.getElementById('quitButton');
+    const exitFullscreenButton = document.getElementById('exitFullscreenButton');
     
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    const isFullscreen = false;
+    
+    //state button actions
     startButton.addEventListener('click', function() {
         startScreen.style.display = 'none';
-        game.start();  // Start your game here
+        quitButton.style.display = 'block';
+        game.start();
+        if (isMobileDevice()) {
+            requestFullscreen(document.documentElement);
+        }
     });
+
+    //restart  button actions
     restartButton.addEventListener('click', function() {
         cancelAnimationFrame(requestId);
         restartButton.style.display = 'none';
+        quitButton.style.display = 'none';
         game.isRestarting = true;
         // add fade class to canvas
         canvas.classList.add('fade');
@@ -218,6 +248,58 @@ window.addEventListener('load', function(){
             // remove fade class from canvas
             canvas.classList.remove('fade');
         }, 500);
+    });
+    //quit button actions
+    quitButton.addEventListener('click', function() {
+        startScreen.style.display = 'block';
+        restartButton.style.display = 'none';
+        quitButton.style.display = 'none';
+        game.restart();
+        exitFullscreen();
+    });
+
+    exitFullscreenButton.addEventListener('click', function() {
+        game.gameOver = true;
+        restartButton.style.display = 'block';
+        quitButton.style.display = 'block';
+    });
+    //detect if on mobile and add fullscreen button
+    function requestFullscreen(element) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
+    }
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mosExitFullscreen) { /* firefox */
+            document.mozExitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+    if (isMobileDevice()) {
+        requestFullscreen(document.documentElement); // 'document.documentElement' is the entire HTML document
+    }
+
+
+    document.addEventListener('fullscreenchange', function() {
+        if (document.fullscreenElement) {
+            exitFullscreenButton.style.display = "block";
+        } else {
+            exitFullscreenButton.style.display = "none";
+        }
     });
 
     animate(0);

@@ -7,7 +7,6 @@ export class InputHandler {
         let doubleTapTimer = null;
         let lastTouchTime = 0
 
-
         window.addEventListener('keydown', e => {
 
             if ((e.key === 'ArrowDown' || 
@@ -50,7 +49,7 @@ export class InputHandler {
             // Start the timer when the touchstart event happens
             doubleTapTimer = setTimeout(() => {
                 if (this.keys.indexOf('double tap') !== -1) this.keys.splice(this.keys.indexOf('double tap'), 1);
-            }, 1000); // milliseconds = seconds
+            }, 1500); // milliseconds = seconds
         });
         
         window.addEventListener('touchmove', e => {
