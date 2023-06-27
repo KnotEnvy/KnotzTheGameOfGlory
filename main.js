@@ -131,6 +131,7 @@ window.addEventListener('load', function(){
 
             this.UI.update(deltaTime);
 
+
         }
         draw(c){
             this.background.draw(c)
@@ -158,8 +159,11 @@ window.addEventListener('load', function(){
             else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
             this.enemies.push(new FlyingEnemy(this))
 
-            if (this.time > 20000) {
-                this.enemies.push(new BatEnemy(this));
+            if (this.time > 2000) {
+                const bat = new BatEnemy(this);
+                // 10% chance for the bat to provide extra time
+                bat.providesExtraTime = Math.random() < 0.1;
+                this.enemies.push(bat);
             }
 
         }
@@ -184,7 +188,7 @@ window.addEventListener('load', function(){
             // this.fontColor = 'black';
             this.time = 0;
             this.lastTime = 0
-            // this.maxTime = 60000;
+            this.maxTime = 60000;
             this.gameOver = false;
             this.lives = 5;
 

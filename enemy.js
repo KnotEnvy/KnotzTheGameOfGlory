@@ -106,6 +106,7 @@ export class BatEnemy extends Enemy {
         this.speedY = 0;
         this.maxFrame = 5;
         this.image = bat1 // replace with your bat image
+        this.type = 'bat1';
         this.angle = 0
         this.va = Math.random() * 0.01+0.02;
 

@@ -12,7 +12,7 @@ export class FloatingMessage {
         this.x += (this.targetX - this.x) *.03
         this.y += (this.targetY - this.y) *.03
         this.timer++;
-        if (this.timer > 100) this.markedForDeletion = true
+        if (this.timer > 125) this.markedForDeletion = true
     }
     draw(c){
         c.font = '24px Creepster';
