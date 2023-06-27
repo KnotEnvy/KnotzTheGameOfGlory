@@ -4,10 +4,6 @@ import { Background } from './background.js';
 import { FlyingEnemy, ClimbingEnemy, GroundEnemy, BatEnemy } from './enemy.js';
 import { UI } from './UI.js';
 
-
-
-
-
 window.addEventListener('load', function(){
     const canvas = this.document.getElementById('canvas1');
     const ctx = canvas.getContext('2d')
@@ -232,9 +228,13 @@ window.addEventListener('load', function(){
         quitButton.style.display = 'block';
         game.start();
         if (isMobileDevice()) {
+
             requestFullscreen(document.documentElement);
         }
     });
+    // fullscreenButton.addEventListener('click', function() {
+    // });
+    
 
     //restart  button actions
     restartButton.addEventListener('click', function() {
@@ -292,9 +292,9 @@ window.addEventListener('load', function(){
     function isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
-    if (isMobileDevice()) {
-        requestFullscreen(document.documentElement); // 'document.documentElement' is the entire HTML document
-    }
+    // if (isMobileDevice()) {
+    //     fullscreenButton.style.display = "block";
+    // }
 
 
     document.addEventListener('fullscreenchange', function() {
