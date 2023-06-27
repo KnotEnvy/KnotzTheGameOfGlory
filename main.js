@@ -34,18 +34,16 @@ window.addEventListener('load', function(){
             this.winningScore = 50;
             // Define instructions for desktop and mobile
             this.desktopInstructions = [
-                'Left and right arrow move',
-                'Up arrow jumps',
+                'Left, right, up, down arrow moves',
                 'Press Enter to attack',
-                `Get ${this.winningScore}pts within in the time limit and win!!`,
+                'Down arrow builds energy',
                 'GOOD LUCK!!'
             ];
 
             this.mobileInstructions = [
-                'Swipe left or right to move',
-                'Swipe up to jump',
-                'Tap to attack',
-                `Get ${this.winningScore}pts within in the time limit and win!!`,
+                'Swipe left, right, up, down to move',
+                'Double Tap and hold to attack',
+                'Swipe down builds energy',
                 'GOOD LUCK!!'
             ];
 
@@ -102,9 +100,7 @@ window.addEventListener('load', function(){
             } else {
                 this.instructionAlpha = 1 - this.instructionTimer / 3000;  // Alpha will go from 1 to 0 over 3 seconds
                 this.instructionTimer += deltaTime;
-             
             }
-            
             //handle enemies
             if (this.enemyTimer > this.enemyInterval){
                 this.addEnemy();
@@ -144,7 +140,7 @@ window.addEventListener('load', function(){
             this.background.draw(c)
 
             this.player.draw(c)
-            this.player.drawEnergyBar(c);
+            // this.player.drawEnergyBar(c);
             this.showInstructions(c);
             this.enemies.forEach(enemy  => {
                 enemy.draw(c);

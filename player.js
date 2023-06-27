@@ -28,7 +28,7 @@ export class Player {
         this.energyGainRate = 1
         this.divingEnergyCost = 150; // Energy lost when diving
         this.rollingEnergyCost = 10; // Energy lost when rolling
-        this.hitEnergyCost = 10; // Energy lost when hit
+        this.hitEnergyCost = 20; // Energy lost when hit
         this.states = [new Sitting(this.game), new Running(this.game), new Jumping(this.game), 
             new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)]; //this order must match states in playerStates
         this.currentState = null;
@@ -40,8 +40,8 @@ export class Player {
         this.currentState.handleInput(input);
         //horizontial movement
         this.x += this.speed;
-        if (input.includes('ArrowRight') || input.includes('swipe right') && this.currentState !== this.states[6]) this.speed = this.maxSpeed;
-        else if (input.includes('ArrowLeft') || input.includes('swipe left') && this.currentState !== this.states[6]) this.speed = -this.maxSpeed
+        if (input.includes(('ArrowRight') || input.includes('swipe right')) && this.currentState !== this.states[6]) this.speed = this.maxSpeed;
+        else if (input.includes(('ArrowLeft') || input.includes('swipe left')) && this.currentState !== this.states[6]) this.speed = -this.maxSpeed
         else this.speed = 0;
         //horizontal boundaries
         if  (this.x < 0) this.x = 0;
@@ -53,6 +53,7 @@ export class Player {
         //vertical boundaries
         if (this.y > this.game.height - this.height - this.game.groundMargin) this.y = 
         this.game.height - this.height - this.game.groundMargin
+
         //sprite animation
         if (this.frameTimer > this.frameInterval){
             this.frameTimer = 0;
@@ -120,6 +121,9 @@ export class Player {
                     // enemies hitting player
                     this.energy -= this.hitEnergyCost;
                     this.setState(6,0)
+                    this.vx = 0; // Set horizontal velocity to zero
+                    this.vy = 0; // Set vertical velocity to zero
+                    this.speed = 0; // Set speed to zero
                     this.game.score -= 3
                     this.game.lives--;
                     if (this.game.lives <= 0) this.game.gameOver = true
@@ -127,7 +131,6 @@ export class Player {
             }
         }) 
     }
-
     drawEnergyBar(c) {
         const barWidth = 200;
         const barHeight = 10;

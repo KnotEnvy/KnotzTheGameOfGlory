@@ -1,9 +1,15 @@
 export class UI {
     constructor(game){
-        this.game = game
-        this.fontSize = 30
+        this.game = game;
+        this.fontSize = 30;
         this.fontFamily = 'Creepster';
-        this.livesImage = lives
+        this.livesImage = lives;
+        // dimensions and position for energy bar
+        this.barWidth = 200;
+        this.barHeight = 10;
+        this.x = 10;
+        this.y = 10;
+        this.prevEnergy = this.game.player.energy;
     }
     draw(c){
         c.save();
@@ -21,8 +27,7 @@ export class UI {
         c.fillText('Time: ' + (this.game.time *.001).toFixed(1), 20, 80)
         //lives
         for (let i = 0; i < this.game.lives; i++){
-            c.drawImage(this.livesImage, 25 * i + 20,95,25,25)
-
+            c.drawImage(this.livesImage, 25 * i + 20,470,25,25)
         }
         // game over messages
         if (this.game.gameOver){
@@ -46,8 +51,45 @@ export class UI {
         } else {
             document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
         }
+        /// Energy bar
+        this.drawEnergyBar(c);
         c.restore();
     }
+    drawEnergyBar(c) {
+        c.fillStyle = 'black';
+        c.fillRect(this.x, this.y, this.barWidth, this.barHeight);
+    
+        // Reset shadow properties
+        c.shadowOffsetX = 0;
+        c.shadowOffsetY = 0;
+        c.shadowBlur = 0;
+    
+        // If energy is increasing and less than 100, apply a gold glow
+        if (this.game.player.currentState === this.game.player.states[0] && this.game.player.energy < 100 && this.game.player.energy > this.prevEnergy) {
+            c.shadowOffsetX = 2;
+            c.shadowOffsetY = 2;
+            c.shadowColor = 'gold';  // Gold glow
+            c.shadowBlur = 10;
+        } 
+        // If energy is decreasing, apply a red glow
+        else if (this.game.player.energy < this.prevEnergy) {
+            c.shadowOffsetX = 2;
+            c.shadowOffsetY = 2;
+            c.shadowColor = 'red';  // Red glow
+            c.shadowBlur = 10;
+            // this.game.particles.unshift(new Fire(this.game, this.x + this.game.player.energy / 100 * this.barWidth, this.y, true));
+        }
+    
+        c.fillStyle = 'gray';  // Energy bar is always gold
+        c.fillRect(this.x, this.y, this.game.player.energy / 100 * this.barWidth, this.barHeight);
+    
+        // Update prevEnergy for the next frame
+        this.prevEnergy = this.game.player.energy;
+    }
+    
+    
+    
+    
     update(deltaTime) {
         // Update the UI state here, if necessary
         // this.draw(c)

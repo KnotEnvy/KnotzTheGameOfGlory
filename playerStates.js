@@ -172,11 +172,13 @@ export class Diving extends State {
 export class Hit extends State {
     constructor(game){
         super('HIT', game);
+        this.animationFinished = false;
     }
     enter(){
         this.game.player.frameX = 0
         this.game.player.maxFrame = 10
         this.game.player.frameY = 4
+        this.animationFinished = false;
     }
     handleInput(input){
         if (this.game.player.frameX >= 10 && this.game.player.onGround()){
@@ -184,6 +186,12 @@ export class Hit extends State {
         } else if (input.includes('Enter') || input.includes('double tap') && !this.game.player.onGround()){
             this.game.player.setState(states.FALLING, 1);
 
+        }
+    }
+    update(deltaTime){
+        // Update animation progress
+        if (this.game.player.frameX >= 10) {
+            this.animationFinished = true;
         }
     }
 }
