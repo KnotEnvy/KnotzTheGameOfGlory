@@ -20,6 +20,15 @@ export class Player {
         this.frameTimer = 0
         this.speed = 0;
         this.maxSpeed = 10;
+        this.initialJumpY = null;
+        this.maxJumpHeight = 27;  // This is the maximum jump height, adjust as needed
+
+        this.energy = 100; // Assuming energy is a percentage
+        this.energyLossRate = 5; // Amount of energy lost per second
+        this.energyGainRate = 1
+        this.divingEnergyCost = 150; // Energy lost when diving
+        this.rollingEnergyCost = 10; // Energy lost when rolling
+        this.hitEnergyCost = 10; // Energy lost when hit
         this.states = [new Sitting(this.game), new Running(this.game), new Jumping(this.game), 
             new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)]; //this order must match states in playerStates
         this.currentState = null;
@@ -52,13 +61,36 @@ export class Player {
         } else {
             this.frameTimer += deltaTime
         }
-
+        this.reduceEnergy(deltaTime);
 
     }
     draw(c) {
         if (this.game.debug) c.strokeRect(this.x, this.y, this.width, this.height)
         c.drawImage(this.image, this.frameX*this.width, this.frameY *this.height, this.width, this.height, this.x, this.y, this.width, this.height)
     }
+    reduceEnergy(deltaTime){
+        // Energy reduction over time
+        this.energy -= this.energyLossRate * (deltaTime / 1000);
+        // Energy gain is sitting
+        if (this.currentState instanceof Sitting) {
+            // Energy gain while sitting
+            this.energy += this.energyGainRate;
+        }
+        //Energy loss when attacking
+        if (this.currentState instanceof Rolling) {
+            // Energy loss while rolling
+            this.energy -= this.rollingEnergyCost * (deltaTime / 1000);
+        }
+        if (this.currentState instanceof Diving) {
+            // Energy loss while diving
+            this.energy -= this.divingEnergyCost * (deltaTime / 1000);
+        }
+        
+        // Energy can't go below 0 or above 100
+        if (this.energy < 0) this.energy = 0;
+        if (this.energy > 100) this.energy = 100;
+    }
+
     onGround(){
         return this.y >= this.game.height - this.height - this.game.groundMargin;
 
@@ -75,22 +107,35 @@ export class Player {
                 enemy.x + enemy.width > this.x &&
                 enemy.y < this.y + this.height &&
                 enemy.y + enemy.height > this.y
-
             ){
-                //collision detected
+                //collision detected with enemies
                 enemy.markedForDeletion = true;
                 this.game.collisions.push(new CollisionAnimation(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height *.5))
+                // attacking enemies
                 if (this.currentState === this.states[4] || this.currentState === this.states[5]){
                     this.game.score++
                     this.game.floatingMessages.push(new FloatingMessage('+1', enemy.x, enemy.y, 125, 50))
-
+                    
                 } else {
+                    // enemies hitting player
+                    this.energy -= this.hitEnergyCost;
                     this.setState(6,0)
-                    this.game.score -= 5
+                    this.game.score -= 3
                     this.game.lives--;
                     if (this.game.lives <= 0) this.game.gameOver = true
                 }
             }
         }) 
+    }
+
+    drawEnergyBar(c) {
+        const barWidth = 200;
+        const barHeight = 10;
+        const x = 10;
+        const y = 10;
+        c.fillStyle = 'black';
+        c.fillRect(x, y, barWidth, barHeight);
+        c.fillStyle = 'gold';
+        c.fillRect(x, y, this.energy / 100 * barWidth, barHeight);
     }
 }

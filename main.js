@@ -144,6 +144,7 @@ window.addEventListener('load', function(){
             this.background.draw(c)
 
             this.player.draw(c)
+            this.player.drawEnergyBar(c);
             this.showInstructions(c);
             this.enemies.forEach(enemy  => {
                 enemy.draw(c);
@@ -190,6 +191,7 @@ window.addEventListener('load', function(){
             // this.maxTime = 60000;
             this.gameOver = false;
             this.lives = 5;
+
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter();
             animate(0);
