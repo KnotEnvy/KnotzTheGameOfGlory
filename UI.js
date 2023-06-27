@@ -51,8 +51,11 @@ export class UI {
                 this.game.width * 0.5, this.game.height *0.5 +20);
             }
             document.getElementById('restartButton').style.display = 'block'; // Show the restart button
+            document.getElementById('quitButton').style.display = 'block'; // Show the restart button
+            
         } else {
             document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
+            document.getElementById('quitButton').style.display = 'none'; // Hide the restart button
         }
         this.drawEnergyBar(c, this.x + 95 , this.y+3 );
         c.restore();

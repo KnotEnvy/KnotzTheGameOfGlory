@@ -225,7 +225,7 @@ window.addEventListener('load', function(){
     //state button actions
     startButton.addEventListener('click', function() {
         startScreen.style.display = 'none';
-        quitButton.style.display = 'block';
+        // quitButton.style.display = 'block';
         game.start();
         if (isMobileDevice()) {
             requestFullscreen(document.documentElement);
