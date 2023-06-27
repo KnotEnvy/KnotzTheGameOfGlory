@@ -94,3 +94,27 @@ export class ClimbingEnemy extends Enemy {
     }
     
 }
+export class BatEnemy extends Enemy {
+    constructor(game){
+        super();
+        this.game = game;
+        this.width = 83;
+        this.height = 44;
+        this.x = this.game.width + Math.random() * this.game.width * 0.5;
+        this.y = Math.random() * this.game.height * 0.5;
+        this.speedX = Math.random() + 3;
+        this.speedY = 0;
+        this.maxFrame = 5;
+        this.image = bat1 // replace with your bat image
+        this.angle = 0
+        this.va = Math.random() * 0.01+0.02;
+
+    }
+    update(deltaTime){
+        super.update(deltaTime);
+        this.angle += this.va;
+        this.y += Math.sin(this.angle);
+        ;
+    }
+
+}    

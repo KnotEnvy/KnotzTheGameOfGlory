@@ -1,7 +1,7 @@
 import { Player } from './player.js';
 import { InputHandler } from './input.js';
 import { Background } from './background.js';
-import { FlyingEnemy, ClimbingEnemy, GroundEnemy } from './enemy.js';
+import { FlyingEnemy, ClimbingEnemy, GroundEnemy, BatEnemy } from './enemy.js';
 import { UI } from './UI.js';
 
 
@@ -20,15 +20,15 @@ window.addEventListener('load', function(){
             this.width = width;
             this.height = height;
             this.isGameStarted = false;
-            this.groundMargin = 40
-            this.speed = 0
-            this.maxSpeed = 5
-            this.background = new Background(this)
+            this.groundMargin = 40;
+            this.speed = 0;
+            this.maxSpeed = 5;
+            this.background = new Background(this);
             this.player = new Player(this);
             this.input = new InputHandler(this);
-            this.UI = new UI(this)
-            this.enemies = []
-            this.particles = []
+            this.UI = new UI(this);
+            this.enemies = [];
+            this.particles = [];
             this.collisions = [];
             this.floatingMessages = [];
             this.winningScore = 50;
@@ -54,16 +54,16 @@ window.addEventListener('load', function(){
 
             this.maxParticles = 200;
             this.enemyTimer = 0;
-            this.enemyInterval = 1000
-            this.debug = false
-            this.score = 0
+            this.enemyInterval = 1000;
+            this.debug = false;
+            this.score = 0;
             this.fontColor = 'black'
             this.time = 0;
             this.maxTime = 60000;
-            this.gameOver = false
+            this.gameOver = false;
             this.lives = 5;
             this.player.currentState = this.player.states[0];
-            this.player.currentState.enter()
+            this.player.currentState.enter();
         }
         start() {
             this.isGameStarted = true;
@@ -162,6 +162,10 @@ window.addEventListener('load', function(){
             else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
             this.enemies.push(new FlyingEnemy(this))
 
+            if (this.time > 20000) {
+                this.enemies.push(new BatEnemy(this));
+            }
+
         }
         restart() {
             this.groundMargin = 40;
@@ -190,7 +194,8 @@ window.addEventListener('load', function(){
 
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter();
-            animate(0);
+            this.start()
+            animate(0)
         }
         
     }

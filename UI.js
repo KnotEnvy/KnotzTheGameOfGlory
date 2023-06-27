@@ -21,14 +21,17 @@ export class UI {
         c.textAlign = 'left'
         c.fillStyle = this.game.fontColor;
         //score
-        c.fillText('Score: ' + this.game.score, 20, 50);
+        c.fillText('Score: ' + this.game.score, 20, 55);
         // timer
         c.font = this.fontSize * 0.8 + 'px ' + this.fontFamily;
-        c.fillText('Time: ' + (this.game.time *.001).toFixed(1), 20, 80)
+        c.fillText('Time: ' + (this.game.time *.001).toFixed(1), 20, 85)
         //lives
         for (let i = 0; i < this.game.lives; i++){
             c.drawImage(this.livesImage, 25 * i + 20,470,25,25)
         }
+        /// Energy bar
+        c.font = this.fontSize  + 'px ' + this.fontFamily;
+        c.fillText('Power: ', 20, 25)
         // game over messages
         if (this.game.gameOver){
             c.shadowBlur = 10; // Apply the glow effect
@@ -51,13 +54,12 @@ export class UI {
         } else {
             document.getElementById('restartButton').style.display = 'none'; // Hide the restart button
         }
-        /// Energy bar
-        this.drawEnergyBar(c);
+        this.drawEnergyBar(c, this.x + 95 , this.y+3 );
         c.restore();
     }
-    drawEnergyBar(c) {
+    drawEnergyBar(c, x, y) {
         c.fillStyle = 'black';
-        c.fillRect(this.x, this.y, this.barWidth, this.barHeight);
+        c.fillRect(x, y, this.barWidth, this.barHeight);
     
         // Reset shadow properties
         c.shadowOffsetX = 0;
@@ -81,7 +83,7 @@ export class UI {
         }
     
         c.fillStyle = 'gray';  // Energy bar is always gold
-        c.fillRect(this.x, this.y, this.game.player.energy / 100 * this.barWidth, this.barHeight);
+        c.fillRect(x, y, this.game.player.energy / 100 * this.barWidth, this.barHeight);
     
         // Update prevEnergy for the next frame
         this.prevEnergy = this.game.player.energy;
