@@ -69,29 +69,6 @@ body {
     box-shadow: 0 2px #495057; /* Changed to a darker grey color */
     transform: translateY(4px);
 }
-#restartButton {
-    position: absolute;
-    top: 68%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 2em;
-    background-color: #555;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 6px #495057; /* Changed to a darker grey color */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-#restartButton:hover {
-    background-color: #495057; /* Changed to a darker grey color */
-}
-
-#restartButton:active {
-    box-shadow: 0 2px #495057; /* Changed to a darker grey color */
-    transform: translateY(4px);
-}
 
 @keyframes fade {
     0% {opacity: 1;}
@@ -110,6 +87,71 @@ body {
 .fadeText {
     animation: fadeText 3s;
 }
+#buttonContainer {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#restartButton, #quitButton {
+    margin: 5px; /* Adjust the margin as needed */
+
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 6px #495057;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+#restartButton {
+    font-size: 2em;
+    padding: 10px 20px;
+}
+
+#quitButton {
+    font-size: 1em;
+    padding: 5px 10px;
+}
+
+#restartButton:hover, #quitButton:hover {
+    background-color: #495057;
+}
+
+#restartButton:active, #quitButton:active {
+    box-shadow: 0 2px #495057;
+    transform: translateY(4px);
+}
+
+
+#exitFullscreenButton {
+    position: absolute;
+    top: 5%; /* Adjust the value as needed */
+    right: 5%; /* Adjust the value as needed */
+    padding: 2px 5px; /* Adjust the padding to resize the button */
+    font-size: 1em; /* Adjust the font size as needed */
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px #495057;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+#exitFullscreenButton:hover {
+    background-color: #495057;
+}
+
+#exitFullscreenButton:active {
+    box-shadow: 0 1px #495057;
+}
+
+
 
 
 

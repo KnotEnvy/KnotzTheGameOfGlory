@@ -228,7 +228,6 @@ window.addEventListener('load', function(){
         quitButton.style.display = 'block';
         game.start();
         if (isMobileDevice()) {
-
             requestFullscreen(document.documentElement);
         }
     });
@@ -297,13 +296,13 @@ window.addEventListener('load', function(){
     // }
 
 
-    document.addEventListener('fullscreenchange', function() {
-        if (document.fullscreenElement) {
-            exitFullscreenButton.style.display = "block";
-        } else {
-            exitFullscreenButton.style.display = "none";
-        }
-    });
+    exitFullscreenButton.style.display = "block";
+    // document.addEventListener('fullscreenchange', function() {
+    //     if (document.fullscreenElement) {
+    //     } //else {
+    //     //     exitFullscreenButton.style.display = "none";
+    //     // }
+    // });
 
     animate(0);
 });
