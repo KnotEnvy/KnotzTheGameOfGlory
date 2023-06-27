@@ -24,7 +24,7 @@ export class UI {
         c.fillText('Score: ' + this.game.score, 20, 55);
         // timer
         c.font = this.fontSize * 0.8 + 'px ' + this.fontFamily;
-        c.fillText('Time: ' + (this.game.time *.001).toFixed(1), 20, 85)
+        c.fillText('Time: ' + (this.game.time *.001).toFixed(1)+' / '+ (this.game.maxTime *.001).toFixed(1), 20, 85)
         //lives
         for (let i = 0; i < this.game.lives; i++){
             c.drawImage(this.livesImage, 25 * i + 20,470,25,25)

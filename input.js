@@ -17,6 +17,15 @@ export class InputHandler {
                 ) && this.keys.indexOf(e.key) === -1){
                 this.keys.push(e.key)
             } else if (e.key === 'd') this.game.debug = !this.game.debug
+            // Check if the key pressed was 'Enter'
+            if (e.key === 'Enter') {
+                // Check if the restart button is visible
+                let restartButton = document.getElementById('restartButton');
+                if (restartButton && restartButton.style.display !== 'none') {
+                    // Programmatically click the restart button
+                    restartButton.click();
+                }
+            }
         })
         window.addEventListener('keyup', e => {
             if (e.key === 'ArrowDown' ||
