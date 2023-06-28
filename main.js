@@ -66,7 +66,7 @@ window.addEventListener('load', function(){
             this.player.currentState.enter();
 
             //load sounds
-            this.soundController.loadSound('bg', 'sounds/bg1.mp3');
+            this.soundController.loadSound('bg', 'sounds/chromo.mp3');
             this.soundController.setVolume('bg', 0.3);
 
             
