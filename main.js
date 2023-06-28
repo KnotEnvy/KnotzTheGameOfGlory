@@ -255,6 +255,7 @@ window.addEventListener('load', function(){
         startScreen.style.display = 'none';
         // quitButton.style.display = 'block';
         game.start();
+        this.soundController.loopSound('bg');
         if (isMobileDevice()) {
             requestFullscreen(document.documentElement);
         }
