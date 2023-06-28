@@ -30,7 +30,7 @@ export class Sitting extends State {
         this.game.player.frameY = 5
     }
     handleInput(input){
-        if ((input.includes('ArrowLeft') || input.includes('ArrowRight') || input.includes('swipe left') || input.includes('swipe right')) 
+        if ((input.includes('ArrowLeft') || input.includes('ArrowRight') || input.includes('move left') || input.includes('move right')) 
             && !(input.includes('ArrowDown') || input.includes('swipe down'))) {
             this.game.player.setState(states.RUNNING, 1);
         } else if (input.includes('Enter') || input.includes('double tap')) {
