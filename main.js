@@ -3,6 +3,8 @@ import { InputHandler } from './input.js';
 import { Background } from './background.js';
 import { FlyingEnemy, ClimbingEnemy, GroundEnemy, BatEnemy } from './enemy.js';
 import { UI } from './UI.js';
+import { SoundController } from './soundController.js';
+
 
 window.addEventListener('load', function(){
     const canvas = this.document.getElementById('canvas1');
@@ -23,6 +25,7 @@ window.addEventListener('load', function(){
             this.player = new Player(this);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
+            this.soundController = new SoundController(this);
             this.enemies = [];
             this.particles = [];
             this.collisions = [];
@@ -61,9 +64,17 @@ window.addEventListener('load', function(){
             this.lives = 5;
             this.player.currentState = this.player.states[0];
             this.player.currentState.enter();
+
+            //load sounds
+            this.soundController.loadSound('bg', 'sounds/bg1.mp3');
+            this.soundController.setVolume('bg', 0.3);
+
+            
         }
         start() {
             this.isGameStarted = true;
+            // Play background music
+            this.soundController.loopSound('bg')
         }
         showInstructions(c) {
             if (!this.instructions.length) return;

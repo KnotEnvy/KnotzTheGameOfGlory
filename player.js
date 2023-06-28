@@ -33,6 +33,8 @@ export class Player {
             new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)]; //this order must match states in playerStates
         this.currentState = null;
 
+        
+
 
     }
     update(input, deltaTime){
