@@ -6,6 +6,7 @@ export class Player {
     constructor(game, soundController){
         this.game = game;
         this.soundController = soundController;
+        this.jumpSoundPlayed = false;
         this.width = 100;
         this.height = 91.3;
         this.x = 0;
@@ -112,6 +113,7 @@ export class Player {
         this.currentState.enter()
     }
     checkCollision(){
+        
         this.game.enemies.forEach(enemy => {
             if (
                 enemy.x < this.x + this.width &&

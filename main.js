@@ -147,6 +147,11 @@ window.addEventListener('load', function(){
             this.floatingMessages = this.floatingMessages.filter(message => !message.markedForDeletion)
             this.instructions = this.instructions.filter(message => !message.markedForDeletion)
 
+            //handle sounds
+            if (this.player.onGround()) {
+                this.player.jumpSoundPlayed = false;
+            }
+
             this.UI.update(deltaTime);
 
 

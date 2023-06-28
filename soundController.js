@@ -3,14 +3,23 @@ export class SoundController {
         this.sounds = {};
     }
 
-    loadSound(key, src) {
+    loadSound(key, src, volume = 1) {
         let sound = new Audio(src);
+        sound.volume = volume;
         this.sounds[key] = sound;
     }
-
+    
     playSound(key) {
         if (this.sounds[key]) {
-            this.sounds[key].play();
+            let sound = new Audio(this.sounds[key].src);
+            sound.volume = this.sounds[key].volume;
+            sound.play();
+        }
+    }
+    
+    setVolume(key, volume) {
+        if (this.sounds[key]) {
+            this.sounds[key].volume = volume;
         }
     }
 
@@ -27,10 +36,9 @@ export class SoundController {
             this.sounds[key].play();
         }
     }
-    setVolume(name, volume) {
-        const sound = this.sounds[name];
-        if (sound) {
-            sound.volume = volume;
+    setVolume(key, volume) {
+        if (this.sounds[key]) {
+            this.sounds[key].volume = volume;
         }
     }
     
