@@ -78,6 +78,7 @@ export class Jumping extends State {
             this.game.player.y > 250) {  // This is 50px from the top of the screen
             // The player is still holding the jump button and hasn't reached the maximum jump height, so continue the jump
             this.game.player.vy -= 3;
+            this.game.player.soundController.playSound('roll');
         } else {
             // The player has released the jump button or reached the maximum jump height, so stop the jump
             this.game.player.jumping = false;
@@ -131,6 +132,7 @@ export class Rolling extends State {
                 this.game.player.setState(states.FALLING, 1);
             } else if ((input.includes('swipe up') || input.includes('ArrowUp')) && this.game.player.onGround()){
                 this.game.player.vy -=27;
+                this.game.player.soundController.playSound('roll');
                 
             } else if ((input.includes('ArrowDown') || input.includes('swipe down')) && !this.game.player.onGround()){
                 this.game.player.setState(states.DIVING, 0)

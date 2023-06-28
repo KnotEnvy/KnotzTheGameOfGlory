@@ -3,8 +3,9 @@ import { CollisionAnimation } from './collisionAnimation.js';
 import { FloatingMessage } from './floatingMessages.js';
 
 export class Player {
-    constructor(game){
+    constructor(game, soundController){
         this.game = game;
+        this.soundController = soundController;
         this.width = 100;
         this.height = 91.3;
         this.x = 0;
@@ -22,7 +23,6 @@ export class Player {
         this.maxSpeed = 10;
         this.initialJumpY = null;
         this.maxJumpHeight = 27;  // This is the maximum jump height, adjust as needed
-
         this.energy = 100; // Assuming energy is a percentage
         this.energyLossRate = 5; // Amount of energy lost per second
         this.energyGainRate = 1
@@ -81,7 +81,7 @@ export class Player {
     }
     reduceEnergy(deltaTime){
         // Energy reduction over time
-        this.energy -= this.energyLossRate * (deltaTime / 1000);
+        this.energy += this.energyLossRate * (deltaTime / 1000);
         // Energy gain is sitting
         if (this.currentState instanceof Sitting) {
             // Energy gain while sitting
@@ -126,6 +126,7 @@ export class Player {
                 if (this.currentState === this.states[4] || this.currentState === this.states[5]){
                     this.game.score++
                     this.game.floatingMessages.push(new FloatingMessage('+1', enemy.x, enemy.y, 125, 50))
+                    this.game.soundController.playSound('pop');
                     // Add time to maxTime when a bat enemy is killed
                     // Check if enemy is a bat and if it provides extra time
                 if (enemy.type === 'bat1' && enemy.providesExtraTime) {

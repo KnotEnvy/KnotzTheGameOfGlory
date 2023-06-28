@@ -21,11 +21,11 @@ window.addEventListener('load', function(){
             this.groundMargin = 40;
             this.speed = 0;
             this.maxSpeed = 5;
+            this.soundController = new SoundController(this);
             this.background = new Background(this);
-            this.player = new Player(this);
+            this.player = new Player(this,  this.soundController);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
-            this.soundController = new SoundController(this);
             this.enemies = [];
             this.particles = [];
             this.collisions = [];
@@ -68,6 +68,10 @@ window.addEventListener('load', function(){
             //load sounds
             this.soundController.loadSound('bg', 'sounds/chromo.mp3');
             this.soundController.setVolume('bg', 0.3);
+            this.soundController.loadSound('roll', 'sounds/jump2.mp3');
+            this.soundController.loadSound('pop', 'sounds/pop.mp3');
+
+            
 
             
         }
@@ -186,7 +190,7 @@ window.addEventListener('load', function(){
             this.speed = 0;
             // this.maxSpeed = 5;
             this.background = new Background(this);
-            this.player = new Player(this);
+            this.player = new Player(this, this.soundController);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
             this.player.reset();
