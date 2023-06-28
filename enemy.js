@@ -98,11 +98,11 @@ export class BatEnemy extends Enemy {
     constructor(game){
         super();
         this.game = game;
-        this.width = 83;
+        this.width = 83.17;
         this.height = 44;
         this.x = this.game.width + Math.random() * this.game.width * 0.5;
         this.y = Math.random() * this.game.height * 0.5;
-        this.speedX = Math.random() + 3;
+        this.speedX = Math.random() +.1;
         this.speedY = 0;
         this.maxFrame = 5;
         this.image = bat1 // replace with your bat image

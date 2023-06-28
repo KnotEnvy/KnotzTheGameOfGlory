@@ -32,14 +32,15 @@ window.addEventListener('load', function(){
             this.desktopInstructions = [
                 'Left, right, up, down arrow moves',
                 'Press Enter to attack',
-                'Down arrow builds energy',
+                'Down arrow builds power',
+                
                 'GOOD LUCK!!'
             ];
 
             this.mobileInstructions = [
                 'Swipe left, right, up, down to move',
                 'Double Tap and hold to attack',
-                'Swipe down builds energy',
+                'Swipe down builds power',
                 'GOOD LUCK!!'
             ];
 
@@ -50,7 +51,7 @@ window.addEventListener('load', function(){
 
             this.maxParticles = 200;
             this.enemyTimer = 0;
-            this.enemyInterval = 1000;
+            this.enemyInterval = 2000;
             this.debug = false;
             this.score = 0;
             this.fontColor = 'black'
@@ -73,7 +74,7 @@ window.addEventListener('load', function(){
             c.shadowOffsetY = 2;
             c.shadowColor = 'gold';
             c.shadowBlur = 10;
-            c.font = '30px Helvetica';
+            c.font = '30px Creepster';
             c.textAlign = 'center';
             c.fillStyle = `rgba(255, 255, 255, ${this.instructionAlpha})`;
 
@@ -100,9 +101,11 @@ window.addEventListener('load', function(){
             //handle enemies
             if (this.enemyTimer > this.enemyInterval){
                 this.addEnemy();
-                this.enemyTimer = 0
+                this.enemyTimer = 0;
+                // After each enemy spawn, decrease the interval by a certain amount (e.g., 0.1%)
+                this.enemyInterval *= 0.999;
             } else {
-                this.enemyTimer += deltaTime
+                this.enemyTimer += deltaTime;
             }
             this.enemies.forEach(enemy  => {
                 enemy.update(deltaTime);
@@ -159,7 +162,7 @@ window.addEventListener('load', function(){
             else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
             this.enemies.push(new FlyingEnemy(this))
 
-            if (this.time > 2000) {
+            if (this.time > 20000) {
                 const bat = new BatEnemy(this);
                 // 10% chance for the bat to provide extra time
                 bat.providesExtraTime = Math.random() < 0.1;
@@ -175,13 +178,14 @@ window.addEventListener('load', function(){
             this.player = new Player(this);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
+            this.player.reset();
             this.enemies = [];
             this.particles = [];
             this.collisions = [];
             this.floatingMessages = [];
             this.maxParticles = 200;
             this.enemyTimer = 0;
-            this.enemyInterval = 1000;
+            this.enemyInterval = 2000;
             // this.debug = false;
             this.score = 0;
             // this.winningScore = 50;

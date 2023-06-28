@@ -72,6 +72,10 @@ export class Player {
         if (this.game.debug) c.strokeRect(this.x, this.y, this.width, this.height)
         c.drawImage(this.image, this.frameX*this.width, this.frameY *this.height, this.width, this.height, this.x, this.y, this.width, this.height)
     }
+    reset() {
+        this.energy = 100; // reset energy to its maximum value
+        // reset other properties as needed
+    }
     reduceEnergy(deltaTime){
         // Energy reduction over time
         this.energy -= this.energyLossRate * (deltaTime / 1000);
