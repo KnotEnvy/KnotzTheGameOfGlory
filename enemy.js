@@ -6,6 +6,13 @@ class Enemy {
         this.frameInterval = 1000/this.fps
         this.frameTimer = 0;
         this.markedForDeletion = false
+        
+    }
+    stopSound() {
+        if (this.sound) {
+            this.sound.pause();
+            this.sound = null;
+        }
     }
     update(deltaTime){
         //movement
@@ -41,7 +48,13 @@ export class FlyingEnemy extends Enemy {
         this.image = enemy_fly
         this.angle = 0
         this.va = Math.random() * 0.1+0.1;
-
+        this.sound = game.soundController.playSoundLoop('fly');
+        
+        
+    }
+    stopSound(game) {
+        super.stopSound(game);
+        // If there are any additional sounds for this enemy, stop them here.
     }
     update(deltaTime){
         super.update(deltaTime);
@@ -63,6 +76,10 @@ export class GroundEnemy extends Enemy {
         this.speedY = 0;
         this.maxFrame = 1;
     }
+    stopSound() {
+        super.stopSound();
+        // If there are any additional sounds for this enemy, stop them here.
+    }
 
 }
 export class ClimbingEnemy extends Enemy {
@@ -78,6 +95,10 @@ export class ClimbingEnemy extends Enemy {
         this.speedY = Math.random() > 0.5 ? 1 : -1;
         this.maxFrame = 5
 
+    }
+    stopSound() {
+        super.stopSound();
+        // If there are any additional sounds for this enemy, stop them here.
     }
     update(deltaTime){
         super.update(deltaTime);
@@ -110,6 +131,10 @@ export class BatEnemy extends Enemy {
         this.angle = 0
         this.va = Math.random() * 0.01+0.02;
 
+    }
+    stopSound() {
+        super.stopSound();
+        // If there are any additional sounds for this enemy, stop them here.
     }
     update(deltaTime){
         super.update(deltaTime);

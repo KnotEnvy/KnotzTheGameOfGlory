@@ -9,7 +9,7 @@ import { SoundController } from './soundController.js';
 window.addEventListener('load', function(){
     const canvas = this.document.getElementById('canvas1');
     const ctx = canvas.getContext('2d')
-    canvas.width = 900
+    canvas.width = 1000
     canvas.height = 500
 
     
@@ -51,7 +51,6 @@ window.addEventListener('load', function(){
             this.instructions = isMobileDevice() ? this.mobileInstructions : this.desktopInstructions;
             this.instructionTimer = 0;
             this.instructionAlpha = 1;
-
             this.maxParticles = 200;
             this.enemyTimer = 0;
             this.enemyInterval = 2000;
@@ -66,16 +65,28 @@ window.addEventListener('load', function(){
             this.player.currentState.enter();
 
             //load sounds
-            this.soundController.loadSound('bg', 'sounds/chromo.mp3');
-            this.soundController.setVolume('bg', 0.3);
+            this.soundController.loadSound('bg', 'sounds/bg1.mp3');
+            this.soundController.setVolume('bg', 0.5);
             this.soundController.loadSound('roll', 'sounds/jump2.mp3');
             this.soundController.loadSound('pop', 'sounds/pop.mp3');
+            this.soundController.setVolume('pop', 1);
+            this.soundController.loadSound('fly', 'sounds/Retro Fly 01.mp3');
+            this.soundController.setVolume('fly', 0.1);
+            this.soundController.loadSound('no power', 'sounds/no power.mp3');
+            this.soundController.setVolume('no power', 0.3);
+            this.soundController.loadSound('steps', 'sounds/footsteps.mp3');
+            this.soundController.setPlaybackRate('steps', 7)
+            this.soundController.setVolume('steps', 0.5);
 
+            this.soundController.loadSound('full', 'sounds/full power.mp3');
+            this.soundController.loadSound('boing', 'sounds/Jump.mp3');
             
-
+            
+            
             
         }
         start() {
+            
             this.isGameStarted = true;
             // Play background music
             this.soundController.loopSound('bg')
@@ -113,18 +124,23 @@ window.addEventListener('load', function(){
                 this.instructionAlpha = 1 - this.instructionTimer / 3000;  // Alpha will go from 1 to 0 over 3 seconds
                 this.instructionTimer += deltaTime;
             }
+            
+            
             //handle enemies
             if (this.enemyTimer > this.enemyInterval){
                 this.addEnemy();
                 this.enemyTimer = 0;
                 // After each enemy spawn, decrease the interval by a certain amount (e.g., 0.1%)
-                this.enemyInterval *= 0.999;
+                this.enemyInterval *= .99;
             } else {
                 this.enemyTimer += deltaTime;
             }
-            this.enemies.forEach(enemy  => {
-                enemy.update(deltaTime);
-            })
+            
+            //stop sounds at end of game
+            if (this.gameOver == true) {
+                // this.soundController.stopAllSounds();
+                this.enemies.forEach(enemy => enemy.stopSound());
+            }
             //floating messages
             this.floatingMessages.forEach(message => {
                 message.update();
@@ -151,6 +167,23 @@ window.addEventListener('load', function(){
             if (this.player.onGround()) {
                 this.player.jumpSoundPlayed = false;
             }
+            // Check if player's energy is full
+            if (this.player.energy >= this.player.maxEnergy) {
+                // If it's full and the sound is not already playing, play the sound
+                if (!this.soundController.isPlaying('full')) {
+                    this.soundController.playSound('full');
+                }
+            }
+            //handle enemy sounds
+            this.enemies.forEach(enemy  => {
+                enemy.update(deltaTime);
+                if (enemy.x + enemy.width < 0 || enemy.y + enemy.height < 0) {
+                    if (enemy.sound) {
+                        enemy.sound.pause();
+                        enemy.sound = null; // Free up memory
+                    }
+                }
+            })
 
             this.UI.update(deltaTime);
 
@@ -161,10 +194,10 @@ window.addEventListener('load', function(){
 
             this.player.draw(c)
             // this.player.drawEnergyBar(c);
-            this.showInstructions(c);
             this.enemies.forEach(enemy  => {
                 enemy.draw(c);
             });
+            this.showInstructions(c);
             this.particles.forEach(particle  => {
                 particle.draw(c);
             });
@@ -191,10 +224,12 @@ window.addEventListener('load', function(){
 
         }
         restart() {
+
             this.groundMargin = 40;
             this.speed = 0;
             // this.maxSpeed = 5;
             this.background = new Background(this);
+            // this.soundController = new SoundController(this)
             this.player = new Player(this, this.soundController);
             this.input = new InputHandler(this);
             this.UI = new UI(this);
@@ -203,9 +238,10 @@ window.addEventListener('load', function(){
             this.particles = [];
             this.collisions = [];
             this.floatingMessages = [];
+            this.soundController.resetSounds();
             this.maxParticles = 200;
             this.enemyTimer = 0;
-            this.enemyInterval = 2000;
+            this.enemyInterval = 3000;
             // this.debug = false;
             this.score = 0;
             // this.winningScore = 50;
@@ -274,6 +310,7 @@ window.addEventListener('load', function(){
         canvas.classList.add('fade');
         // wait 0.5 seconds before restarting game
         setTimeout(function() {
+            
             game.isRestarting = false;
             game.restart();
             // remove fade class from canvas
@@ -282,13 +319,17 @@ window.addEventListener('load', function(){
     });
     //quit button actions
     quitButton.addEventListener('click', function() {
+        // cancelAnimationFrame(requestId);
+
         startScreen.style.display = 'block';
         restartButton.style.display = 'none';
         quitButton.style.display = 'none';
-        game.restart();
-        exitFullscreen();
+        // game.restart();
+        if (isMobileDevice()) {
+            exitFullscreen();
+        }
     });
-
+        
     exitFullscreenButton.addEventListener('click', function() {
         game.gameOver = true;
         restartButton.style.display = 'block';
@@ -325,13 +366,13 @@ window.addEventListener('load', function(){
     // }
 
 
-    exitFullscreenButton.style.display = "block";
-    // document.addEventListener('fullscreenchange', function() {
-    //     if (document.fullscreenElement) {
-    //     } //else {
-    //     //     exitFullscreenButton.style.display = "none";
-    //     // }
-    // });
+    // exitFullscreenButton.style.display = "block";
+    document.addEventListener('fullscreenchange', function() {
+        if (document.fullscreenElement) {
+        } //else {
+        //     exitFullscreenButton.style.display = "none";
+        // }
+    });
 
     animate(0);
 });

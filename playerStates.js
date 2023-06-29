@@ -33,15 +33,24 @@ export class Sitting extends State {
         if ((input.includes('ArrowLeft') || input.includes('ArrowRight') || input.includes('move left') || input.includes('move right')) 
             && !(input.includes('ArrowDown') || input.includes('swipe down'))) {
             this.game.player.setState(states.RUNNING, 1);
-        } else if (input.includes('Enter') || input.includes('double tap')) {
-            this.game.player.setState(states.ROLLING, 2);
-        } else if ((input.includes('swipe up') || input.includes('ArrowUp')) && this.game.player.onGround()){
-            this.game.player.setState(states.JUMPING, 1);
-
-            // this.game.player.vy -=27;
+            // Start the footsteps sound if it's not already playing
+            if (!this.game.player.soundController.isPlaying('steps')) {
+                this.game.player.soundController.loopSound('steps', 0.001);
+            }
+        } else {
+            // Stop the footsteps sound if it's playing
+            if (this.game.player.soundController.isPlaying('steps')) {
+                this.game.player.soundController.stopSound('steps');
+            }
+            if (input.includes('Enter') || input.includes('double tap')) {
+                this.game.player.setState(states.ROLLING, 2);
+            } else if ((input.includes('swipe up') || input.includes('ArrowUp')) && this.game.player.onGround()){
+                this.game.player.setState(states.JUMPING, 1);
+            }
         }
     }
 }
+    
 export class Running extends State {
     constructor(game){
         super('RUNNING', game);
@@ -136,15 +145,17 @@ export class Rolling extends State {
             } else if ((input.includes('swipe up') || input.includes('ArrowUp')) && this.game.player.onGround()){
                 this.game.player.vy -=27;
                 if (!this.game.player.jumpSoundPlayed) {
-                    this.game.player.soundController.playSound('roll');
-                    this.game.player.jumpSoundPlayed = true;
-                }
+                        this.game.player.soundController.playSound('roll');
+                        this.game.player.jumpSoundPlayed = true;
+                    }
+                
             } else if ((input.includes('ArrowDown') || input.includes('swipe down')) && !this.game.player.onGround()){
                 this.game.player.setState(states.DIVING, 0)
             }
         } else {
             // Prevent player from rolling
             this.game.player.setState(states.RUNNING, 1);
+            this.game.player.soundController.playSound('no power',0.25);
         }
     }
     

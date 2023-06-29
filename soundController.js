@@ -36,10 +36,35 @@ export class SoundController {
             this.sounds[key].play();
         }
     }
-    setVolume(key, volume) {
+    playSoundLoop(key) {
         if (this.sounds[key]) {
-            this.sounds[key].volume = volume;
+            let sound = this.sounds[key].cloneNode();
+            sound.loop = true;
+            sound.play();
+            return sound;
         }
     }
+    isPlaying(key) {
+        return this.sounds[key] && !this.sounds[key].paused;
+    }
+    setPlaybackRate(key, rate) {
+        if (this.sounds[key]) {
+            this.sounds[key].playbackRate = rate;
+        }
+    }
+    resetSounds() {
+        for(let key in this.sounds) {
+            if(this.sounds[key]) {
+                this.sounds[key].pause();
+                this.sounds[key].currentTime = 0;
+            }
+        }
+    }
+    stopAllSounds() {
+        for (let key in this.sounds) {
+            this.stopSound(key);
+        }
+    }
+    
     
 }

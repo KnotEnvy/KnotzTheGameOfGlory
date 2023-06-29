@@ -81,11 +81,10 @@ export class Player {
         // reset other properties as needed
     }
     reduceEnergy(deltaTime){
-        // Energy reduction over time
+        // Energy increase over time
         this.energy += this.energyLossRate * (deltaTime / 1000);
         // Energy gain is sitting
         if (this.currentState instanceof Sitting) {
-            // Energy gain while sitting
             this.energy += this.energyGainRate;
         }
         //Energy loss when attacking
@@ -97,6 +96,7 @@ export class Player {
             // Energy loss while diving
             this.energy -= this.divingEnergyCost * (deltaTime / 1000);
         }
+        
         
         // Energy can't go below 0 or above 100
         if (this.energy < 0) this.energy = 0;
@@ -123,6 +123,11 @@ export class Player {
             ){
                 //collision detected with enemies
                 enemy.markedForDeletion = true;
+                // Stop the sound if the enemy has a sound playing
+                if (enemy.sound) {
+                    enemy.sound.pause();
+                    enemy.sound = null; // Free up memory
+                }   
                 this.game.collisions.push(new CollisionAnimation(this.game, enemy.x + enemy.width * 0.5, enemy.y + enemy.height *.5))
                 // attacking enemies
                 if (this.currentState === this.states[4] || this.currentState === this.states[5]){
