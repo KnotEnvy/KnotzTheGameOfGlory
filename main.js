@@ -71,15 +71,16 @@ window.addEventListener('load', function(){
             this.soundController.loadSound('pop', 'sounds/pop.mp3');
             this.soundController.setVolume('pop', 1);
             this.soundController.loadSound('fly', 'sounds/Retro Fly 01.mp3');
-            this.soundController.setVolume('fly', 0.1);
+            this.soundController.setVolume('fly', 0.3);
             this.soundController.loadSound('no power', 'sounds/no power.mp3');
-            this.soundController.setVolume('no power', 0.3);
+            this.soundController.setVolume('no power', 0.5);
             this.soundController.loadSound('steps', 'sounds/footsteps.mp3');
             this.soundController.setPlaybackRate('steps', 7)
             this.soundController.setVolume('steps', 0.5);
 
             this.soundController.loadSound('full', 'sounds/full power.mp3');
-            this.soundController.loadSound('boing', 'sounds/Jump.mp3');
+            this.soundController.loadSound('bounce', 'sounds/Jump.mp3'); //bounce off enemies
+            this.soundController.loadSound('gain', 'sounds/Jump.mp3');
             
             
             
@@ -115,16 +116,6 @@ window.addEventListener('load', function(){
             if (this.time > this.maxTime) this.gameOver = true
             this.background.update()
             this.player.update(this.input.keys, deltaTime)
-            //display instructions on screen
-            if (this.instructions.length && this.instructionTimer > 3000) {
-                this.instructions.shift();
-                this.instructionTimer = 0;
-                this.instructionAlpha = 1;
-            } else {
-                this.instructionAlpha = 1 - this.instructionTimer / 3000;  // Alpha will go from 1 to 0 over 3 seconds
-                this.instructionTimer += deltaTime;
-            }
-            
             
             //handle enemies
             if (this.enemyTimer > this.enemyInterval){
@@ -141,6 +132,16 @@ window.addEventListener('load', function(){
                 // this.soundController.stopAllSounds();
                 this.enemies.forEach(enemy => enemy.stopSound());
             }
+            //display instructions on screen
+            if (this.instructions.length && this.instructionTimer > 3000) {
+                this.instructions.shift();
+                this.instructionTimer = 0;
+                this.instructionAlpha = 1;
+            } else {
+                this.instructionAlpha = 1 - this.instructionTimer / 3000;  // Alpha will go from 1 to 0 over 3 seconds
+                this.instructionTimer += deltaTime;
+            }
+            
             //floating messages
             this.floatingMessages.forEach(message => {
                 message.update();

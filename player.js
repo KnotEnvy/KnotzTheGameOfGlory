@@ -28,7 +28,7 @@ export class Player {
         this.energyLossRate = 5; // Amount of energy lost per second
         this.energyGainRate = 1
         this.divingEnergyCost = 150; // Energy lost when diving
-        this.rollingEnergyCost = 25; // Energy lost when rolling
+        this.rollingEnergyCost = 10; // Energy lost when rolling
         this.hitEnergyCost = 20; // Energy lost when hit
         this.states = [new Sitting(this.game), new Running(this.game), new Jumping(this.game), 
             new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)]; //this order must match states in playerStates
@@ -81,8 +81,8 @@ export class Player {
         // reset other properties as needed
     }
     reduceEnergy(deltaTime){
-        // Energy increase over time
-        this.energy += this.energyLossRate * (deltaTime / 1000);
+        // Energy decrease over time
+        this.energy -= this.energyLossRate * (deltaTime / 1000);
         // Energy gain is sitting
         if (this.currentState instanceof Sitting) {
             this.energy += this.energyGainRate;
@@ -136,11 +136,13 @@ export class Player {
                     this.game.soundController.playSound('pop');
                     // Add time to maxTime when a bat enemy is killed
                     // Check if enemy is a bat and if it provides extra time
+                // Check if enemy is a bat and if it provides extra time
                 if (enemy.type === 'bat1' && enemy.providesExtraTime) {
                     this.game.maxTime += 5000;
-                    this.game.floatingMessages.push(new FloatingMessage('+5', enemy.x, enemy.y, 160, 85))
-
-                    }
+                    var words = ['Nice!', 'Great!', 'Awesome!', 'Fantastic!'];
+                    var word = words[Math.floor(Math.random() * words.length)];
+                    this.game.floatingMessages.push(new FloatingMessage('+5 ' + word, enemy.x, enemy.y, 160, 85))
+                }
                 } else {
                     // enemies hitting player
                     this.energy -= this.hitEnergyCost;
