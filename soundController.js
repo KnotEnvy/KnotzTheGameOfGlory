@@ -65,6 +65,14 @@ export class SoundController {
             this.stopSound(key);
         }
     }
+    // Add this in your SoundController class
+    playSoundSilently(key) {
+        if (this.sounds[key]) {
+            let sound = this.sounds[key].cloneNode();
+            sound.volume = 0;
+            sound.play();
+        }
+    }
     
     
 }

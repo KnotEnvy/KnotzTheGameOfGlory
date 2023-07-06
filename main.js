@@ -295,8 +295,14 @@ window.addEventListener('load', function(){
     startButton.addEventListener('click', function() {
         startScreen.style.display = 'none';
         // quitButton.style.display = 'block';
+        for (let key in game.soundController.sounds) {
+            game.soundController.playSoundSilently(key);
+        }
+    
+        // Your other start game code...
         game.start();
-        this.soundController.loopSound('bg');
+        game.soundController.loopSound('bg');
+
         if (isMobileDevice()) {
             requestFullscreen(document.documentElement);
         }

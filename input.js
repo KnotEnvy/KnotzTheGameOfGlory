@@ -33,12 +33,7 @@ export class InputHandler {
                 this.keys = this.keys.filter(key => key !== control);
             });
         }
-    
-
-
-
-
-
+        //Keyboard controls
         window.addEventListener('keydown', e => {
 
             if ((e.key === 'ArrowDown' || 
