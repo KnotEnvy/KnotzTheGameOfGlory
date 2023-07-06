@@ -53,23 +53,24 @@ body {
     padding: 10px 20px;
     font-size: 2em;
     cursor: pointer;
-    background-color: #6c757d; /* Changed to a grey color */
+    background-color: rgba(108, 117, 125, 0.8); /* Change the background color to use an rgba value with an opacity of 0.8 */
     border: none;
     font-family: 'Creepster', cursive;
     color: white;
     border-radius: 5px;
-    box-shadow: 0 6px #495057; /* Changed to a darker grey color */
+    box-shadow: 0 6px #495057;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 #startButton:hover {
-    background-color: #495057; /* Changed to a darker grey color */
+    background-color: rgba(73, 80, 87, 0.8); /* Change the background color to use an rgba value with an opacity of 0.8 */
 }
 
 #startButton:active {
-    box-shadow: 0 2px #495057; /* Changed to a darker grey color */
+    box-shadow: 0 2px #495057;
     transform: translateY(4px);
 }
+
 
 @keyframes fade {
     0% {opacity: 1;}
@@ -101,7 +102,7 @@ body {
 #restartButton, #quitButton {
     margin: 5px; /* Adjust the margin as needed */
 
-    background-color: #555;
+    background-color: rgba(85, 85, 85, 0.5);
     color: #fff;
     border: none;
     font-family: 'Creepster', cursive;
@@ -170,7 +171,7 @@ body {
     display: flex;
     flex-direction: column;
 }
-}
+
 
 #controls-left.visible,
 #controls-right.visible {

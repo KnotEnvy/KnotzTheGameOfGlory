@@ -24,7 +24,7 @@ export class UI {
         c.fillText('Score: ' + this.game.score, 20, 55);
         // timer
         c.font = this.fontSize * 0.8 + 'px ' + this.fontFamily;
-        c.fillText('Time: ' + (this.game.time *.001).toFixed(1)+' / '+ (this.game.maxTime *.001).toFixed(1), 20, 85)
+        c.fillText('Time: ' + (this.game.time *.001).toFixed(2)+' / '+ (this.game.maxTime *.001).toFixed(1), 20, 85)
         //lives
         for (let i = 0; i < this.game.lives; i++){
             c.drawImage(this.livesImage, 25 * i + 20,470,25,25)
@@ -40,14 +40,14 @@ export class UI {
             c.textAlign = 'center';
             c.font = (this.fontSize * 2 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
             if (this.game.score > this.game.winningScore) {
-                c.fillText('Boo-yah', this.game.width * .5, this.game.height * 0.5 -20);
+                c.fillText('You did it!!', this.game.width * .5, this.game.height * 0.5 -20);
                 c.font = (this.fontSize * 0.7 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
-                c.fillText('What are creatures of the night afraid of? YOU!!', 
+                c.fillText('You scored more than time allots. Great Job!!', 
                 this.game.width * 0.5, this.game.height *0.5 +20);
             } else {
-                c.fillText('Love at first Bite?', this.game.width * .5, this.game.height *0.5 -20);
+                c.fillText('What happened? You Lose!!', this.game.width * .5, this.game.height *0.5 -20);
                 c.font = (this.fontSize * 0.7 * scale) + 'px ' + this.fontFamily; // Apply scale to font size
-                c.fillText('Nope! Better luck next time!', 
+                c.fillText('Better luck next time! Score more than '+ this.game.winningScore + ' to win!!', 
                 this.game.width * 0.5, this.game.height *0.5 +20);
             }
             document.getElementById('restartButton').style.display = 'block'; // Show the restart button
