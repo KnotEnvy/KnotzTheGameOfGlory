@@ -41,9 +41,10 @@ window.addEventListener('load', function(){
             ];
 
             this.mobileInstructions = [
-                'left, right, up, to move',
-                'Action to attack',
-                'Down power ups',
+                'Press Left, Right, Jump, to move',
+                'Hold Action to attack',
+                'Hold Charge to power up',
+                'Look for hidden time bonuses!',
                 'GOOD LUCK!!'
             ];
 
