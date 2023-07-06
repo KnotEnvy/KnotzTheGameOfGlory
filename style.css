@@ -158,14 +158,18 @@ body {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    /* display: none; */
+    display: flex;
+    flex-direction: column;
+
 }
 
 #controls-right {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    /* display: none; */
+    display: flex;
+    flex-direction: column;
+}
 }
 
 #controls-left.visible,
@@ -175,7 +179,7 @@ body {
 
 #controls-left button,
 #controls-right button {
-    margin-bottom: 40px; /* Increase the space between the buttons */
+    margin-bottom: 20px; /* Increase the space between the buttons */
     padding: 10px; /* Increase the padding to make the buttons bigger */
     font-size: 1em; /* Increase the font size to make the text bigger */
     background-color: rgba(85, 85, 85, 0.3); /* Change the background color to use an rgba value with an opacity of 0.8 */
@@ -192,6 +196,7 @@ body {
     box-shadow: 0 2px #495057;
     transform: translateY(5px);
 }
+
 
 
 
