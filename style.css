@@ -175,8 +175,10 @@ body {
 
 #controls-left button,
 #controls-right button {
-    margin-bottom: 30px;
-    background-color: #555;
+    margin-bottom: 40px; /* Increase the space between the buttons */
+    padding: 10px; /* Increase the padding to make the buttons bigger */
+    font-size: 1em; /* Increase the font size to make the text bigger */
+    background-color: rgba(85, 85, 85, 0.3); /* Change the background color to use an rgba value with an opacity of 0.8 */
     color: #fff;
     border: none;
     font-family: 'Creepster', cursive;
@@ -184,7 +186,6 @@ body {
     box-shadow: 0 6px #495057;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: pointer;
-
 }
 #controls-left button:active,
 #controls-right button:active {
