@@ -301,7 +301,7 @@ window.addEventListener('load', function(){
     
         // Your other start game code...
         game.start();
-        game.soundController.loopSound('bg');
+        // game.soundController.loopSound('bg');
 
         if (isMobileDevice()) {
             requestFullscreen(document.documentElement);
