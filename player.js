@@ -46,8 +46,8 @@ export class Player {
 
             //horizontal movement
             this.x += this.speed;
-            if ((input.includes('ArrowRight') || input.includes('move right')) && this.currentState !== this.states[6]) this.speed = this.maxSpeed;
-            else if ((input.includes('ArrowLeft') || input.includes('move left')) && this.currentState !== this.states[6]) this.speed = -this.maxSpeed;
+            if ((input.includes('ArrowRight') || input.includes('right')) && this.currentState !== this.states[6]) this.speed = this.maxSpeed;
+            else if ((input.includes('ArrowLeft') || input.includes('left')) && this.currentState !== this.states[6]) this.speed = -this.maxSpeed;
             else this.speed = 0;
         }
         //horizontal boundaries
