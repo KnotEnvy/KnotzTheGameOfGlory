@@ -41,9 +41,9 @@ window.addEventListener('load', function(){
             ];
 
             this.mobileInstructions = [
-                'Swipe left, right, up, down to move',
-                'Double Tap and hold to attack',
-                'Swipe down builds power',
+                'left, right, up, to move',
+                'Action to attack',
+                'Down power ups',
                 'GOOD LUCK!!'
             ];
 

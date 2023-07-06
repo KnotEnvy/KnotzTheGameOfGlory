@@ -24,6 +24,7 @@ export class InputHandler {
         // Add event listeners for on-screen controls
         for (let control in this.controls) {
             this.controls[control].addEventListener('touchstart', () => {
+                event.preventDefault(); 
                 if (!this.keys.includes(control)) {
                     this.keys.push(control);
                 }
