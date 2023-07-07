@@ -1,3 +1,5 @@
 export function isMobileDevice() {
-    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    const isMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    console.log(`Is mobile: ${isMobile}`);
+    return isMobile;
 }
