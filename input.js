@@ -1,5 +1,5 @@
 export class InputHandler {
-    constructor(game, isMobileDevice) {
+    constructor(game) {
         this.game = game;
         this.keys = [];
 
@@ -12,11 +12,8 @@ export class InputHandler {
             action: document.getElementById('action-button')
         };
 
-        // Set the mobile flag
-        this.isMobile = isMobileDevice;
-
         // If on mobile, display controls
-        if (this.isMobile) {
+        if (isMobileDevice()) {
             document.getElementById('controls-left').classList.add('visible');
             document.getElementById('controls-right').classList.add('visible');
         }
