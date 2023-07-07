@@ -259,9 +259,9 @@ window.addEventListener('load', function(){
             this.start()
             animate(0)
         }
-        static isMobileDevice() {
-            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-        }
+        // static isMobileDevice() {
+        //     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        // }
         
     }
 
