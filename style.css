@@ -155,11 +155,19 @@ body {
     box-shadow: 0 1px #495057;
 }
 
+#controls-left,
+#controls-right {
+    display: none;  /* Hidden by default */
+}
+#controls-left.visible,
+#controls-right.visible {
+    display: flex;  /* Shown when the 'visible' class is added */
+}
 #controls-left {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    display: flex;
+
     flex-direction: column;
 
 }
@@ -168,7 +176,7 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    display: flex;
+
     flex-direction: column;
 }
 
