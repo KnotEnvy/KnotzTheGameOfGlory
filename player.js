@@ -38,6 +38,8 @@ export class Player {
 
 
     }
+    
+    
     update(input, deltaTime){
         this.checkCollision()
         this.currentState.handleInput(input);

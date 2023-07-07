@@ -29,6 +29,7 @@ export class Sitting extends State {
         this.game.player.maxFrame = 4
         this.game.player.frameY = 5
     }
+
     handleInput(input){
         if ((input.includes('ArrowLeft') || input.includes('ArrowRight') || input.includes('left') || input.includes('right')) 
             && !(input.includes('ArrowDown') || input.includes('down'))) {

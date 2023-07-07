@@ -213,9 +213,17 @@ window.addEventListener('load', function(){
             this.UI.draw(c)
         }
         addEnemy(){
-            if (this.speed > 0 && Math.random() < 0.5) this.enemies.push(new GroundEnemy(this))
-            else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
-            this.enemies.push(new FlyingEnemy(this))
+            const rand = Math.random();
+
+            if (rand < 0.25) {
+                this.enemies.push(new GroundEnemy(this));
+            } else if (rand < 0.5) {
+                this.enemies.push(new ClimbingEnemy(this));
+            } else if (rand < 0.75) {
+                this.enemies.push(new FlyingEnemy(this));
+            } else {
+                this.enemies.push(new WormEnemy(this));
+            }
 
             if (this.time > 20000) {
                 const bat = new BatEnemy(this);
