@@ -92,6 +92,9 @@ window.addEventListener('load', function(){
         start() {
             
             this.isGameStarted = true;
+            for (let key in game.soundController.sounds) {
+                game.soundController.playSoundSilently(key);
+            }
             // Play background music
             this.soundController.loopSound('bg')
         }
@@ -310,9 +313,7 @@ window.addEventListener('load', function(){
     startButton.addEventListener('click', function() {
         startScreen.style.display = 'none';
         // quitButton.style.display = 'block';
-        for (let key in game.soundController.sounds) {
-            // game.soundController.playSoundSilently(key);
-        }
+        
     
         // Your other start game code...
         game.start();
