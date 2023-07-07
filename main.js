@@ -68,12 +68,12 @@ window.addEventListener('load', function(){
             this.player.currentState.enter();
 
             //load sounds
-            // this.soundController.loadSound('bg', 'sounds/bg1.mp3');
+            this.soundController.loadSound('bg', 'sounds/chromo.mp3');
             this.soundController.setVolume('bg', 0.5);
             this.soundController.loadSound('roll', 'sounds/jump2.mp3');
             this.soundController.loadSound('pop', 'sounds/pop.mp3');
             this.soundController.setVolume('pop', 1);
-            // this.soundController.loadSound('fly', 'sounds/Retro Fly 01.mp3');
+            this.soundController.loadSound('fly', 'sounds/Retro Fly 01.mp3');
             this.soundController.setVolume('fly', 0.3);
             this.soundController.loadSound('no power', 'sounds/no power.mp3');
             this.soundController.setVolume('no power', 0.5);
@@ -274,9 +274,9 @@ window.addEventListener('load', function(){
             this.start()
             animate(0)
         }
-        // static isMobileDevice() {
-        //     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-        // }
+        static isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
         
     }
 
