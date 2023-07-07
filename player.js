@@ -34,9 +34,6 @@ export class Player {
             new Falling(this.game), new Rolling(this.game), new Diving(this.game), new Hit(this.game)]; //this order must match states in playerStates
         this.currentState = null;
 
-        
-
-
     }
     
     
@@ -84,7 +81,7 @@ export class Player {
     }
     reduceEnergy(deltaTime){
         // Energy decrease over time
-        this.energy -= this.energyLossRate * (deltaTime / 1000);
+        // this.energy -= this.energyLossRate * (deltaTime / 1000);
         // Energy gain is sitting
         if (this.currentState instanceof Sitting) {
             this.energy += this.energyGainRate;
@@ -141,7 +138,10 @@ export class Player {
                 // Check if enemy is a bat and if it provides extra time
                 if (enemy.type === 'bat1', 'worm' && enemy.providesExtraTime) {
                     this.game.maxTime += 5000;
-                    var words = ['Nice!', 'Great!', 'Awesome!', 'Fantastic!'];
+                    var words = ['Nice!', 'Great!', 'Awesome!', 'Fantastic!', 'Terrific!', 'Amazing!', 
+                                    'Wonderful!', 'Superb!', 'Excellent!', 'Brilliant!', 'Splendid!', 'Marvelous!', 'Stunning!', 
+                                    'Fabulous!', 'Magnificent!', 'Outstanding!', 'Remarkable!', 'Impressive!', 'Incredible!', 
+                                    'Spectacular!', 'Phenomenal!', 'Astounding!', 'Extraordinary!', 'Gorgeous!', 'Beautiful!'];
                     var word = words[Math.floor(Math.random() * words.length)];
                     this.game.floatingMessages.push(new FloatingMessage('+5 ' + word, enemy.x, enemy.y, 160, 85))
                 }
