@@ -382,9 +382,7 @@ window.addEventListener('load', function(){
             document.msExitFullscreen();
         }
     }
-    function isMobileDevice() {
-        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    }
+    import { isMobileDevice } from './device.js';
     // if (isMobileDevice()) {
     //     fullscreenButton.style.display = "block";
     // }
