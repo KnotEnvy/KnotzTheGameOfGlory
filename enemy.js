@@ -68,14 +68,14 @@ export class WormEnemy extends Enemy {
     constructor(game){
         super();
         this.game = game;
-        this.width = 60;
-        this.height = 87;
+        this.width = 80.33;
+        this.height = 60;
         this.x = this.game.width;
         this.y = this.game.height - this.height - this.game.groundMargin;
         this.image = enemy_worm; // replace with your worm image
         this.speedX = Math.random() + 2; // faster than the fly enemy
         this.speedY = 0;
-        this.maxFrame = 1;
+        this.maxFrame = 5;
     }
     stopSound() {
         super.stopSound();
