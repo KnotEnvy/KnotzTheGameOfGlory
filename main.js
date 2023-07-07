@@ -212,25 +212,16 @@ window.addEventListener('load', function(){
 
             this.UI.draw(c)
         }
-addEnemy(){
-    if (this.speed > 0 && Math.random() < 0.5) this.enemies.push(new GroundEnemy(this))
-    else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
-    this.enemies.push(new FlyingEnemy(this))
+        addEnemy(){
+            if (this.speed > 0 && Math.random() < 0.5) this.enemies.push(new GroundEnemy(this))
+            else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this))
+            this.enemies.push(new FlyingEnemy(this))
 
-    if (this.time > 20000) {
-        const bat = new BatEnemy(this);
-        // 10% chance for the bat to provide extra time
-        bat.providesExtraTime = Math.random() < 0.1;
-        this.enemies.push(bat);
-    }
-
-    if (this.time > 10000) {
-        const worm = new WormEnemy(this);
-        // 10% chance for the worm to provide extra time
-        worm.providesExtraTime = Math.random() < .15;
-        this.enemies.push(worm);
-    }
-}
+            if (this.time > 20000) {
+                const bat = new BatEnemy(this);
+                // 10% chance for the bat to provide extra time
+                bat.providesExtraTime = Math.random() < 0.1;
+                this.enemies.push(bat);
             }
             if (this.time > 10000) {
                 const worm = new WormEnemy(this);
