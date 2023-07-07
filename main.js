@@ -231,10 +231,10 @@ window.addEventListener('load', function(){
                 bat.providesExtraTime = Math.random() < 0.1;
                 this.enemies.push(bat);
             }
-            if (this.time > 10000) {
+            if (this.time > 35000) {
                 const worm = new WormEnemy(this);
                 // 10% chance for the bat to provide extra time
-                worm.providesExtraTime = Math.random() < .15;
+                worm.providesExtraTime = Math.random() < .1;
                 this.enemies.push(worm);
             }
         }
