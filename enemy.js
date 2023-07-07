@@ -64,16 +64,16 @@ export class FlyingEnemy extends Enemy {
     }
 
 }
-export class GroundEnemy extends Enemy {
+export class WormEnemy extends Enemy {
     constructor(game){
-        super()
+        super();
         this.game = game;
-        this.width = 60
-        this.height = 87
-        this.x = this.game.width
+        this.width = 60;
+        this.height = 87;
+        this.x = this.game.width;
         this.y = this.game.height - this.height - this.game.groundMargin;
-        this.image = enemy_plant
-        this.speedX = 0
+        this.image = enemy_worm; // replace with your worm image
+        this.speedX = Math.random() + 2; // faster than the fly enemy
         this.speedY = 0;
         this.maxFrame = 1;
     }
@@ -81,7 +81,9 @@ export class GroundEnemy extends Enemy {
         super.stopSound();
         // If there are any additional sounds for this enemy, stop them here.
     }
-
+    update(deltaTime){
+        super.update(deltaTime);
+    }
 }
 export class ClimbingEnemy extends Enemy {
     constructor(game){
