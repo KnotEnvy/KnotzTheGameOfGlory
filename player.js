@@ -137,7 +137,7 @@ export class Player {
                     // Add time to maxTime when a bat enemy is killed
                     // Check if enemy is a bat and if it provides extra time
                 // Check if enemy is a bat and if it provides extra time
-                if (enemy.type === 'bat1' && enemy.providesExtraTime) {
+                if (enemy.type === 'bat1', 'worm' && enemy.providesExtraTime) {
                     this.game.maxTime += 5000;
                     var words = ['Nice!', 'Great!', 'Awesome!', 'Fantastic!'];
                     var word = words[Math.floor(Math.random() * words.length)];

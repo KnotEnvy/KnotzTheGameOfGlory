@@ -15,7 +15,7 @@
     font-family: 'Creepster', cursive;
 }
 
-#player, #layer1, #layer2, #layer3, #layer4, #layer5, #enemy_fly, #enemy_plant, 
+#player, #layer1, #layer2, #layer3, #layer4, #layer5, #enemy_fly, #enemy_plant, #worm,
 #enemy_spider_big, #bat1, #bat2, #bat3, #fire, #collisionAnimation, #lives, #fullscreenButton {
     display: none;
 }
