@@ -14,7 +14,7 @@ export class InputHandler {
         };
 
         // If on mobile, display controls
-        import { isMobileDevice } from './device.js';
+
 
         if (isMobileDevice()) {
             document.getElementById('controls-left').classList.add('visible');

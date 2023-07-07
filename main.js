@@ -4,6 +4,8 @@ import { Background } from './background.js';
 import { FlyingEnemy, ClimbingEnemy, GroundEnemy, BatEnemy, WormEnemy } from './enemy.js';
 import { UI } from './UI.js';
 import { SoundController } from './soundController.js';
+import { isMobileDevice } from './device.js';
+
 
 
 window.addEventListener('load', function(){
@@ -382,7 +384,7 @@ window.addEventListener('load', function(){
             document.msExitFullscreen();
         }
     }
-    import { isMobileDevice } from './device.js';
+
     // if (isMobileDevice()) {
     //     fullscreenButton.style.display = "block";
     // }
